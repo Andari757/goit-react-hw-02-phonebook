@@ -3,14 +3,15 @@ import { nanoid } from 'nanoid'
 import ContactForm from "components/ContactForm/ContactForm"
 import ContactList from "components/ContactList/ContactList"
 import Filter from "components/Filter/Filter"
+const initialState = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+]
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: initialState,
     filter: ''
   }
 
@@ -30,8 +31,28 @@ export class App extends Component {
       }
     })
   }
+  getFilteredBooks() {
+    const { filter, contacts } = this.state;
+    if (!filter) {
+      return contacts;
+    }
+    return contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
+
+  }
+  filter = (e) => {
+    this.setState({ filter: e.target.value })
+  }
+  delete = (name) => {
+    this.setState((prev) => {
+      return {
+        contacts: prev.contacts.filter(contact => contact.name !== name)
+      }
+    }
+    )
+  }
 
   render() {
+    const data = this.getFilteredBooks()
     return (
       <div className="app">
         <h1>Phonebook</h1>
@@ -39,9 +60,12 @@ export class App extends Component {
           onSubmit={this.addContact}
         />
         <h2>Contacts</h2>
-        <Filter />
+        <Filter
+          onChange={this.filter}
+          value={this.state.filter} />
         <ContactList
-          contacts={this.state.contacts}
+          contacts={data}
+          onClick={this.delete}
         />
       </div >
     )

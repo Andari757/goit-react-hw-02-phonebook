@@ -1,8 +1,9 @@
 import ListItem from "./ListItem/ListItem"
 import PropTypes from 'prop-types';
+import styles from "./style.module.css"
 export default function ContactList({ contacts, onClick }) {
     return (
-        <ul>
+        <ul className={styles.list}>
             <ListItem
                 contacts={contacts}
                 onClick={onClick}

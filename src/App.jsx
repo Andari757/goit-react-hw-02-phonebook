@@ -55,18 +55,20 @@ export class App extends Component {
     const data = this.getFilteredBooks()
     return (
       <div className="app">
-        <h1>Phonebook</h1>
-        <ContactForm
-          onSubmit={this.addContact}
-        />
-        <h2>Contacts</h2>
-        <Filter
-          onChange={this.filter}
-          value={this.state.filter} />
-        <ContactList
-          contacts={data}
-          onClick={this.delete}
-        />
+        <div className="phone-book">
+          <h1>Phonebook</h1>
+          <ContactForm
+            onSubmit={this.addContact}
+          />
+          <h2>Contacts</h2>
+          <Filter
+            onChange={this.filter}
+            value={this.state.filter} />
+          <ContactList
+            contacts={data}
+            onClick={this.delete}
+          />
+        </div>
       </div >
     )
   };

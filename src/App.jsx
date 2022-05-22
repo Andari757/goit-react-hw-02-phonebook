@@ -11,7 +11,7 @@ const initialState = [
 ]
 export class App extends Component {
   state = {
-    contacts: initialState,
+    contacts: [...initialState],
     filter: ''
   }
 
